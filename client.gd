@@ -67,18 +67,22 @@ func _ready():
 	debug = get_node("../CDebug/Text")
 
 func connect():
-	conn = StreamPeerTCP.new()
-	conn.connect( ip, port )
-	stream = PacketPeerStream.new()
+	#conn = StreamPeerTCP.new()
+	#conn.connect( ip, port )
+	#stream = PacketPeerStream.new()
 	udpstream = UDPClient.new(ip, port)
 	udpstream.handler = self
-	stream.set_stream_peer( conn )
-	if conn.get_status() == StreamPeerTCP.STATUS_CONNECTED:
-		print_debug(  "Connected to "+ip+" :"+str(port) )
-		set_fixed_process(true)
-		is_conn = true
-	else:
-		print_debug("Unable to connect")
+	#stream.set_stream_peer( conn )
+	#if conn.get_status() == StreamPeerTCP.STATUS_CONNECTED:
+	#	print_debug(  "Connected to "+ip+" :"+str(port) )
+	#	set_fixed_process(true)
+	#	is_conn = true
+	#else:
+	#	print_debug("Unable to connect")
+	udp_pending = true
+	udp_id = 5
+	udp_timer = OS.get_unix_time() + UDP_TIMEOUT
+	set_fixed_process(true)
 
 func on_message(message):
 	print_debug(message)
@@ -96,11 +100,11 @@ func _fixed_process(delta):
 	# Process UDP packets
 	udpstream.process_packets()
 	# Parse data
-	while stream.get_available_packet_count() > 0:
-		var data = stream.get_var()
-		udp_id = 5
-		udp_pending = true
-		udp_timer = OS.get_unix_time() + UDP_TIMEOUT
+	#while stream.get_available_packet_count() > 0:
+	#	var data = stream.get_var()
+	#	udp_id = 5
+	#	udp_pending = true
+	#	udp_timer = OS.get_unix_time() + UDP_TIMEOUT
 
 func print_debug(mess):
 	if debug != null:
