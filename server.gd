@@ -16,7 +16,7 @@ class UDPServer:
 	var handler = null
 	
 	# We will never send a string longer than this in a single frame
-	const PAYLOAD_SIZE = 200
+	const PAYLOAD_SIZE = 300
 	const PENDING_TIMEOUT = 10
 	var udpstream = PacketPeerUDP.new()
 	# Outgoing message queue
