@@ -61,7 +61,7 @@ class UDPClient:
 					if complete != null:
 						handler.on_message(complete)
 				else:
-					print("Unknown UDP data: ", data)
+					handler.on_message("Unknown UDP data: " + str(data))
 
 func _ready():
 	debug = get_node("../CDebug/Text")
